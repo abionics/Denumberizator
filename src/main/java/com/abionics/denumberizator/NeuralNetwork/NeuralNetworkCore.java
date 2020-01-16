@@ -170,6 +170,8 @@ class NeuralNetworkCore {
                 result = i;
             }
         }
+        if (max < 0.5)
+            return -1;
         return result;
     }
 
@@ -209,6 +211,38 @@ class NeuralNetworkCore {
     public int analyze(double[] data) {
         iteration(data);
         return result();
+    }
+
+    public double[] heatmap(int output) {
+        double[] result = new double[inputCount];
+        double[] data = new double[inputCount];
+        double max = 0;
+        iteration(data);
+        double[] base = getOutputs();
+        for (int i = 0; i < inputCount; i++) {
+            data[i] = 1;
+            iteration(data);
+            double[] outputs = getOutputs();
+            double difference = 0;
+            for (int j = 0; j < outputCount; j++)
+                if (i != output)
+                    difference += outputs[j] - base[j];
+            difference = outputCount * (outputs[output] - base[output]) - difference;
+            if (Math.abs(difference) > max) max = Math.abs(difference);
+            result[i] = difference;
+            data[i] = 0;
+        }
+        for (int i = 0; i < inputCount; i++)
+            result[i] /= max;
+        return result;
+    }
+    @NotNull
+    private double[] getOutputs() {
+        double[] result = new double[outputCount];
+        int last = hideCount + 1;
+        for (int i = 0; i < outputCount; i++)
+            result[i] = layers[last][i].get() ;
+        return result;
     }
 
     protected void check(@NotNull double[] data, double[] solution) throws NeuralNetworkException {

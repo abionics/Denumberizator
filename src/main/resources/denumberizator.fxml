@@ -60,11 +60,6 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label text="Activation function:" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
                   <Slider fx:id="speedSlider" max="2.0" value="0.7" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="30.0" />
@@ -83,7 +78,6 @@
                         <Insets right="50.0" />
                      </GridPane.margin>
                   </TextField>
-                  <ComboBox fx:id="activationFunctionComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -92,7 +86,7 @@
             <GridPane hgap="30.0" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -144,11 +138,15 @@
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Label fx:id="resultLabel" text="---">
+                        <Label fx:id="resultLabel" minWidth="30.5" text="NaN">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <Button mnemonicParsing="false" onAction="#heatmap" text="Heatmap">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>

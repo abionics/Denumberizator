@@ -2,8 +2,10 @@
   <dictionary name="abionics">
     <words>
       <w>abionics</w>
+      <w>backpropagation</w>
       <w>datas</w>
       <w>denumberizator</w>
+      <w>heatmap</w>
       <w>kheight</w>
     </words>
   </dictionary>

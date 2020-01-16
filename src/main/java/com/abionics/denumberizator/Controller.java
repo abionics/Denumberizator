@@ -25,7 +25,6 @@ public class Controller {
     @FXML Slider speedSlider;
     @FXML Slider momentumSlider;
     @FXML TextField hiddenCountTextField;
-    @FXML ComboBox<String> activationFunctionComboBox;
     @FXML ComboBox<Integer> numberComboBox;
     @FXML Label resultLabel;
 
@@ -99,7 +98,29 @@ public class Controller {
     @FXML private void analyze() {
         if (!model.isInitNeural() || needInit) initNeural();
         int result = model.analyze(picture);
-        resultLabel.setText(Integer.toString(result));
+        if (result != -1) {
+            resultLabel.setText(Integer.toString(result));
+        } else {
+            resultLabel.setText("NaN");
+        }
+    }
+
+    @FXML private void heatmap() {
+        clean();
+        int number = numberComboBox.getValue();
+        double[][] matrix = model.heatmap(number);
+        int width = matrix.length;
+        int height = matrix[0].length;
+        double sizeX = (double) screenWidth / width;
+        double sizeY = (double) screenHeight / height;
+        GraphicsContext graphics = canvas.getGraphicsContext2D();
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++) {
+                double value = matrix[i][j];
+                Color color = value > 0 ? Color.color(0, 1, 0, value) : Color.color(1, 0, 0, -value);
+                graphics.setFill(color);
+                graphics.fillRect(i * sizeX, j * sizeY, sizeX, sizeY);
+            }
     }
 
     @FXML private void datasetLoad() {

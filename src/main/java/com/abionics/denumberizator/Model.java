@@ -120,7 +120,18 @@ class Model {
         var _solutions = solutions.toArray(double[][]::new);
         double deviation = neural.deviation(_datas, _solutions);
         int corrects = neural.corrects(_datas, NeuralNetwork.createAnswers(_solutions));
-        alert("Statistic", "deviation = " + deviation + ", corrects = " + corrects + " of " + datas.size());
+        int count = datas.size();
+        alert("Statistic", "deviation = " + deviation + ", corrects = " + corrects + " of " + count + " (" + 100. * corrects / count + ")");
+    }
+
+    public double[][] heatmap(int output) {
+        double[] linear = neural.heatmap(output);
+        double[][] matrix = new double[MATRIX_WIDTH][MATRIX_HEIGHT];
+        int k = 0;
+        for (int i = 0; i < MATRIX_WIDTH; i++)
+            for (int j = 0; j < MATRIX_HEIGHT; j++)
+                matrix[i][j] = linear[k++];
+        return matrix;
     }
 
     void datasetLoad(File file) {
