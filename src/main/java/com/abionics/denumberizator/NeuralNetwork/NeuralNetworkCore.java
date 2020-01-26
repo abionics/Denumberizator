@@ -241,7 +241,7 @@ class NeuralNetworkCore {
         double[] result = new double[outputCount];
         int last = hideCount + 1;
         for (int i = 0; i < outputCount; i++)
-            result[i] = layers[last][i].get() ;
+            result[i] = layers[last][i].get();
         return result;
     }
 

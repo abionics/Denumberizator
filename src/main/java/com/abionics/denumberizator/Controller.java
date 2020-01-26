@@ -21,12 +21,18 @@ import java.util.stream.IntStream;
 public class Controller {
     private static final File DATA_DIRECTORY = new File("data");
 
-    @FXML Canvas canvas;
-    @FXML Slider speedSlider;
-    @FXML Slider momentumSlider;
-    @FXML TextField hiddenCountTextField;
-    @FXML ComboBox<Integer> numberComboBox;
-    @FXML Label resultLabel;
+    @FXML
+    Canvas canvas;
+    @FXML
+    Slider speedSlider;
+    @FXML
+    Slider momentumSlider;
+    @FXML
+    TextField hiddenCountTextField;
+    @FXML
+    ComboBox<Integer> numberComboBox;
+    @FXML
+    Label resultLabel;
 
     private Model model = new Model();
     private GraphicsContext graphics;
@@ -37,7 +43,8 @@ public class Controller {
     private boolean[][] picture;
 
 
-    @FXML private void initialize() {
+    @FXML
+    private void initialize() {
         IntStream.range(0, 10).forEach(number -> numberComboBox.getItems().add(number));
         numberComboBox.setValue(0);
 
@@ -54,7 +61,8 @@ public class Controller {
                 });
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED,
                 event -> {
-                    if (event.getX() < 0 || event.getX() >= screenWidth || event.getY() < 0 || event.getY() >= screenHeight) return;
+                    if (event.getX() < 0 || event.getX() >= screenWidth || event.getY() < 0 || event.getY() >= screenHeight)
+                        return;
                     graphics.lineTo(event.getX(), event.getY());
                     graphics.stroke();
                     picture[(int) event.getX()][(int) event.getY()] = true;
@@ -79,23 +87,27 @@ public class Controller {
         needInit = false;
     }
 
-    @FXML private void rememberNumber() {
+    @FXML
+    private void rememberNumber() {
         int number = numberComboBox.getValue();
         model.rememberNumber(picture, number);
     }
 
-    @FXML private void learn() {
+    @FXML
+    private void learn() {
         if (!model.isInitNeural() || needInit) initNeural();
         model.learn();
     }
 
-    @FXML private void clean() {
+    @FXML
+    private void clean() {
         for (boolean[] row : picture)
             Arrays.fill(row, false);
         clearCanvas();
     }
 
-    @FXML private void analyze() {
+    @FXML
+    private void analyze() {
         if (!model.isInitNeural() || needInit) initNeural();
         int result = model.analyze(picture);
         if (result != -1) {
@@ -105,7 +117,8 @@ public class Controller {
         }
     }
 
-    @FXML private void heatmap() {
+    @FXML
+    private void heatmap() {
         clean();
         int number = numberComboBox.getValue();
         double[][] matrix = model.heatmap(number);
@@ -123,14 +136,16 @@ public class Controller {
             }
     }
 
-    @FXML private void datasetLoad() {
+    @FXML
+    private void datasetLoad() {
         var chooser = getFileChooser();
         var file = chooser.showOpenDialog(canvas.getScene().getWindow());
         if (file == null) return;
         model.datasetLoad(file);
     }
 
-    @FXML private void datasetSave() {
+    @FXML
+    private void datasetSave() {
         var chooser = getFileChooser();
         var file = chooser.showSaveDialog(canvas.getScene().getWindow());
         if (file == null) return;

@@ -99,6 +99,7 @@ class Model {
         solutions.add(solution);
         System.out.println("[Remembered number " + number + "]");
     }
+
     @NotNull
     @Contract(pure = true)
     private double[] createSolution(int number) {
@@ -150,6 +151,7 @@ class Model {
             ex.printStackTrace();
         }
     }
+
     void datasetSave(File file) {
         var _datas = datas.toArray(double[][]::new);
         var _solutions = solutions.toArray(double[][]::new);
